@@ -1,36 +1,19 @@
-import { SafeAreaView, ScrollView } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import Card from './Card';
-import axios from 'axios';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Home from './modules/Home';
+import Details from './modules/Details';
 
-const API = 'https://pokeapi.co/api/v2/pokemon';
+const Stack = createStackNavigator();
 
-const App = () => {
-  const [pokemons, setPokemons] = useState([]);
-
-  useEffect(() => {
-    async function request() {
-      await axios
-        .get(API)
-        .then(function (response) {
-          setPokemons(response.data.results);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-    request();
-  }, [pokemons]);
-
+export default function App() {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        {pokemons.map(item => (
-          <Card object={item} />
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={Details} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-
-export default App;
+}

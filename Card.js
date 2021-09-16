@@ -1,17 +1,24 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import {Text, View, TouchableOpacity, Alert} from 'react-native';
 
 const Card = ({...props}) => {
   return (
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 10,
-          backgroundColor: '#777',
+    <>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert(props.object.url);
         }}>
-        <Text style={{fontSize: 24}}>{props.object.name}</Text>
-      </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 10,
+            backgroundColor: '#777',
+          }}>
+          <Text style={{fontSize: 24}}>{props.object.name}</Text>
+        </View>
+      </TouchableOpacity>
+    </>
   );
 };
 
