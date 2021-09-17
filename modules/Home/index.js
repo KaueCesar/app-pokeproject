@@ -10,19 +10,15 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    async function request() {
-      await axios
-        .get(API)
-        .then(function (response) {
-          setPokemons(response.data.results);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    async function bootstrap() {
+      try {
+        const response = await axios.get(API);
+        setPokemons(response.data.results);
+      } catch (error) {
+        console.log('Deu erro', error);
+      }
     }
-    request();
-    setLoading(false);
+    bootstrap();
   }, [pokemons]);
 
   return (
@@ -31,8 +27,8 @@ const Home = () => {
         <ActivityIndicator size="large" color="#000" />
       ) : (
         <ScrollView>
-          {pokemons.map(item => (
-            <Card object={item} />
+          {pokemons.map((item, key) => (
+            <Card key={item.name} object={item} />
           ))}
         </ScrollView>
       )}

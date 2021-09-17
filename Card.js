@@ -1,12 +1,17 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, Alert} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Card = ({...props}) => {
+
+  const nav = useNavigation();
   return (
     <>
       <TouchableOpacity
         onPress={() => {
-          Alert.alert(props.object.url);
+          nav.navigate('Details', {
+            url: props.object.url,
+          });
         }}>
         <View
           style={{
